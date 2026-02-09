@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pink: #ffc0cb;
+            --ticket-pink: #ff99ac;
+            --val-red: #d23636;
+            --black: #000000;
+        }
+
+        body {
+            background-color: var(--bg-pink);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* --- HEART RAIN --- */
+        .heart {
+            position: fixed;
+            top: -5vh;
+            color: rgba(210, 54, 54, 0.4);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 10;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-bottom: 4px solid var(--black);
+            background: #000;
+        }
+
+        .background-slideshow {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        .slideshow-track {
+            display: flex;
+            height: 100%;
+            transition: transform 1s cubic-bezier(0.45, 0, 0.55, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.55);
+        }
+
+        .hero-title {
+            position: relative;
+            z-index: 2;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            color: var(--black);
+            margin: 0 0 15px 0;
+            text-align: center;
+            text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff, 5px 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            padding: 20px 35px;
+            border-radius: 40px;
+            border: 2px solid white;
+            max-width: 65%;
+            text-align: center;
+        }
+
+        /* --- MAIN DASHBOARD --- */
+        .main-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            width: 95%;
+            max-width: 1300px;
+            margin: 50px 0;
+        }
+
+        .left-col-note { flex: 1.8; display: flex; flex-direction: column; }
+        .love-card {
+            background: white;
+            padding: 50px;
+            border-radius: 25px;
+            border: 4px solid var(--black);
+            box-shadow: 15px 15px 0px var(--black);
+            position: relative;
+            min-height: 520px;
+        }
+        .love-card::after { content: '📌'; position: absolute; top: 20px; right: 25px; font-size: 2rem; }
+        .love-card h4 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0 0 20px 0; color: var(--val-red); }
+        .love-card p { font-size: 1.3rem; line-height: 1.8; color: #222; }
+
+        .right-col-stack { flex: 1.2; display: flex; flex-direction: column; gap: 30px; min-width: 380px; }
+        
+        .playlist-section {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 3px solid white;
+            padding: 10px;
+        }
+
+        .ticket-vault {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 3px solid white;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* TICKETS */
+        .category-group { display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: 25px; }
+        .grid-header { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; color: var(--val-red); margin-bottom: 12px; border-bottom: 1px solid rgba(210, 54, 54, 0.2); width: 90%; text-align: center; }
+        .sub-ticket-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; justify-items: center; }
+        .ticket-wrapper { filter: drop-shadow(0 0 0 2.5px var(--black)); }
+        .ticket {
+            background-color: var(--ticket-pink);
+            color: var(--black);
+            width: 65px; height: 110px;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            padding: 10px 0; cursor: pointer; transition: 0.2s;
+            border: 2px solid var(--black); /* BLACK OUTLINE Restored */
+            -webkit-mask-image: radial-gradient(circle at 50% 0%, transparent 8px, black 9px), 
+                                radial-gradient(circle at 50% 100%, transparent 8px, black 9px);
+            mask-image: radial-gradient(circle at 50% 0%, transparent 8px, black 9px), 
+                        radial-gradient(circle at 50% 100%, transparent 8px, black 9px);
+            mask-composite: intersect; 
+        }
+        .ticket:hover { transform: scale(1.08) rotate(2deg); }
+        .ticket-title { font-family: 'Great Vibes', cursive; font-size: 0.75rem; writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; flex-grow: 1; }
+        .ticket-dash { width: 80%; border-top: 1.5px dashed var(--black); }
+        .ticket-id { font-size: 0.5rem; font-family: monospace; font-weight: bold; }
+        .redeemed { filter: grayscale(1) opacity(0.3) !important; pointer-events: none; }
+
+        @media (max-width: 1000px) {
+            .main-container { flex-direction: column; align-items: center; }
+            .left-col-note, .right-col-stack { width: 95%; min-width: unset; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-section">
+        <div class="background-slideshow">
+            <div class="slideshow-track" id="track">
+                <img class="slide" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80">
+                <img class="slide" src="https://images.unsplash.com/photo-1516589174184-c68526614fd5?auto=format&fit=crop&w=1200&q=80">
+                <img class="slide" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80">
+            </div>
+        </div>
+        <h1 class="hero-title">Happy Valentine's Day</h1>
+        <div class="hero-content">
+            <h2 style="font-family: 'Great Vibes'; color: var(--val-red); font-size: 2rem; margin: 0;">💌 Today's Thought</h2>
+            <p id="affirmation-text" style="font-weight: 600; font-style: italic; font-size: 1.1rem;">"Loading..."</p>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="left-col-note">
+            <div class="love-card">
+                <h4>To My Favorite Human,</h4>
+                <p>
+                    I wanted to make something as special as you are. These vouchers are yours to use whenever you want—no expiration date, just lots of love. 
+                    <br><br>
+                    Pick a movie, dress up, or make me listen to Taylor... it's your day. I hope you love this little corner of the web.
+                </p>
+                <p style="font-family: 'Great Vibes'; font-size: 2.5rem; text-align: right; margin-top: 40px;">— Me</p>
+            </div>
+        </div>
+
+        <div class="right-col-stack">
+            <div class="playlist-section">
+                <iframe style="border-radius:12px" 
+                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DX7rOY2tFIX0n" 
+                    width="100%" height="352" frameBorder="0" allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <div class="ticket-vault" id="ticket-container">
+                <h3 style="text-align: center; font-family: 'Playfair Display'; margin-top: 0; font-size: 1.2rem;">Voucher Book</h3>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ADD YOUR AFFIRMATIONS HERE
+        const loveAffirmations = [
+            "You make my world a whole lot brighter just by being in it.",
+            "I'm so incredibly lucky to have you by my side.",
+            "You are the most beautiful person I know, inside and out.",
+            "Thank you for being my person and my best friend.",
+            "Every day with you is my favorite day.",
+            "I love the way you see the world.",
+            "You're my favorite part of every single day."
+        ];
+
+        function getLocalAffirmation() {
+            const randomIndex = Math.floor(Math.random() * loveAffirmations.length);
+            document.getElementById('affirmation-text').innerText = `"${loveAffirmations[randomIndex]}"`;
+        }
+
+        const categories = ["Movie Choice", "Dress to Impress", "Taylor Song", "Bicep Pic"];
+        const ticketContainer = document.getElementById('ticket-container');
+        const redeemedTickets = JSON.parse(localStorage.getItem('redeemedVouchers')) || [];
+
+        categories.forEach((catName, catIndex) => {
+            const group = document.createElement('div');
+            group.className = 'category-group';
+            const header = document.createElement('div');
+            header.className = 'grid-header';
+            header.innerHTML = catName;
+            group.appendChild(header);
+            const subGrid = document.createElement('div');
+            subGrid.className = 'sub-ticket-grid';
+
+            for(let i = 1; i <= 4; i++) {
+                const ticketID = `ticket-${catIndex}-${i}`;
+                const wrapper = document.createElement('div');
+                wrapper.className = 'ticket-wrapper';
+                if (redeemedTickets.includes(ticketID)) wrapper.classList.add('redeemed');
+                const t = document.createElement('div');
+                t.className = 'ticket';
+                t.innerHTML = `<div class="ticket-dash"></div><div class="ticket-title">${catName}</div><div class="ticket-dash"></div><div class="ticket-id">№ ${i}</div>`;
+                t.onclick = function() {
+                    if (!wrapper.classList.contains('redeemed')) {
+                        wrapper.classList.add('redeemed');
+                        const saved = JSON.parse(localStorage.getItem('redeemedVouchers')) || [];
+                        saved.push(ticketID);
+                        localStorage.setItem('redeemedVouchers', JSON.stringify(saved));
+                        alert("Voucher Redeemed! ❤️");
+                    }
+                };
+                wrapper.appendChild(t);
+                subGrid.appendChild(wrapper);
+            }
+            group.appendChild(subGrid);
+            ticketContainer.appendChild(group);
+        });
+
+        let slideIdx = 0;
+        function playSlides() {
+            const track = document.getElementById('track');
+            const slides = document.querySelectorAll('.slide');
+            if(!track || slides.length === 0) return;
+            slideIdx++;
+            if (slideIdx >= slides.length) slideIdx = 0;
+            track.style.transform = `translateX(${slideIdx * -100}%)`;
+            setTimeout(playSlides, 4500);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+            heart.style.opacity = Math.random() * 0.4 + 0.2;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+        }
+
+        window.onload = () => { getLocalAffirmation(); playSlides(); setInterval(createHeart, 450); };
+    </script>
+</body>
+</html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Surprise</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,600&family=Patrick+Hand&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-pink: #ffc0cb;
@@ -102,26 +102,53 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            align-items: flex-start;
+            align-items: stretch;
             gap: 40px;
             width: 95%;
             max-width: 1300px;
             margin: 50px 0;
         }
 
-        .left-col-note { flex: 1.8; display: flex; flex-direction: column; }
+        .left-col-note { flex: 1.5; display: flex; }
+
         .love-card {
             background: white;
-            padding: 50px;
+            padding: 40px;
             border-radius: 25px;
             border: 4px solid var(--black);
             box-shadow: 15px 15px 0px var(--black);
             position: relative;
-            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-height: 800px; /* Aligns with right side */
         }
-        .love-card::after { content: '📌'; position: absolute; top: 20px; right: 25px; font-size: 2rem; }
-        .love-card h4 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0 0 20px 0; color: var(--val-red); }
-        .love-card p { font-size: 1.3rem; line-height: 1.8; color: #222; }
+
+        .note-content {
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+
+        /* Pink scrollbar for the note */
+        .note-content::-webkit-scrollbar { width: 8px; }
+        .note-content::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 10px; }
+        .note-content::-webkit-scrollbar-thumb { background: var(--ticket-pink); border-radius: 10px; border: 2px solid white; }
+
+        .note-body { 
+            font-family: 'Patrick Hand', cursive; 
+            font-size: 1.6rem; 
+            line-height: 1.5; 
+            color: #222; 
+            margin: 0;
+        }
+
+        .fancy-script {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: var(--val-red);
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
 
         .right-col-stack { flex: 1.2; display: flex; flex-direction: column; gap: 30px; min-width: 380px; }
         
@@ -139,6 +166,7 @@
             border-radius: 30px;
             border: 3px solid white;
             padding: 20px;
+            flex-grow: 1;
             max-height: 400px;
             overflow-y: auto;
         }
@@ -154,7 +182,7 @@
             width: 65px; height: 110px;
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
             padding: 10px 0; cursor: pointer; transition: 0.2s;
-            border: 2px solid var(--black); /* BLACK OUTLINE Restored */
+            border: 2px solid var(--black);
             -webkit-mask-image: radial-gradient(circle at 50% 0%, transparent 8px, black 9px), 
                                 radial-gradient(circle at 50% 100%, transparent 8px, black 9px);
             mask-image: radial-gradient(circle at 50% 0%, transparent 8px, black 9px), 
@@ -170,6 +198,7 @@
         @media (max-width: 1000px) {
             .main-container { flex-direction: column; align-items: center; }
             .left-col-note, .right-col-stack { width: 95%; min-width: unset; }
+            .love-card { max-height: 500px; }
         }
     </style>
 </head>
@@ -193,20 +222,24 @@
     <div class="main-container">
         <div class="left-col-note">
             <div class="love-card">
-                <h4>To My Favorite Human,</h4>
-                <p>
-                    I wanted to make something as special as you are. These vouchers are yours to use whenever you want—no expiration date, just lots of love. 
-                    <br><br>
-                    Pick a movie, dress up, or make me listen to Taylor... it's your day. I hope you love this little corner of the web.
-                </p>
-                <p style="font-family: 'Great Vibes'; font-size: 2.5rem; text-align: right; margin-top: 40px;">— Me</p>
+                <div class="note-content">
+                    <div class="fancy-script">My Dearest, Marta,</div>
+                    <p class="note-body">
+                        I want to start by letting you know that I am not a writer, and never have been. Please feel free to correct my grammar, my punctuation, and (if god forbid spell check misses it) my spelling too. <br><br>
+                        When you wrote you're letter you told me the story of when you first saw me, so I guess it’s my turn to tell you the story of when I was certain I knew for certain I wanted this relationship. <br><br>
+                        Remember when we were at the train station outside of the Belvedere? We were both so exhausted. You had just animated every painting you saw with so much passion (except for the modern art you shat on) and we had walked miles around the city. We found a bench where we sat down where you closed your eyes and laid your head on my shoulder. I’d give so much to be back there supporting you, caring for you, and holding your hand. While it might have been a boring moment, the simple quiet peace we shared in that moment is my dream. It made me realize that you were the one I wanted to keep sharing it with.<br><br>
+                        Do you know your beautiful? Real question tbh. You are stunning and not just in a superficial way. The way you smile and laugh at the shitiest attempt at a joke, the way you can talk for hours and hours and never run out of things to talk about, the way you are so emotionally intelligent that you can tell what I’m thinking before I think. You’re so smart, so successful, so funny, have I said beautiful yet 🤔. I get so lost just looking into your eyes. I get so giddy just thinking about spending time with you and double so when I think about how you’ll be here in May. I enjoy talking to you, and when we were in Vienna and New York I enjoyed spending every moment with you. <br><br>
+                        I told you earlier this week that I don’t think love is passionate, it's not fiery and fierce and it’s not loud and fast. It’s a slow long rocky path with no end in sight. And trust me with a whole ocean separating us and being on 2 different continents, with our own problems and issues to overcome there’s gonna be a whole lotta rocks. But the path in its own right is beautiful with something new around every corner. There is no one more, I want to walk it hand in hand, arm in arm, one bench in a train station at a time with, than you.<br><br>
+                    </p>
+                    <div class="fancy-script">Yours, Luca</div>
+                </div>
             </div>
         </div>
 
         <div class="right-col-stack">
             <div class="playlist-section">
                 <iframe style="border-radius:12px" 
-                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DX7rOY2tFIX0n" 
+                    src="https://open.spotify.com/embed/playlist/7dKmL55XxwTzm3WubHaRnW?utm_source=generator"
                     width="100%" height="352" frameBorder="0" allowfullscreen="" 
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                     loading="lazy">
@@ -214,29 +247,50 @@
             </div>
 
             <div class="ticket-vault" id="ticket-container">
-                <h3 style="text-align: center; font-family: 'Playfair Display'; margin-top: 0; font-size: 1.2rem;">Voucher Book</h3>
+                <h3 style="text-align: center; font-family: 'Playfair Display'; margin-top: 0; font-size: 1.2rem;">Ticket Booth</h3>
             </div>
         </div>
     </div>
 
     <script>
-        // ADD YOUR AFFIRMATIONS HERE
         const loveAffirmations = [
-            "You make my world a whole lot brighter just by being in it.",
-            "I'm so incredibly lucky to have you by my side.",
-            "You are the most beautiful person I know, inside and out.",
-            "Choosing between you and Tyler is a tough choice but I'd still choose you.",
-            "Every day with you is my favorite day.",
+            "If you were a fruit you'd be a fineapple.",
+            "I'm so fucking lucky to have you by my side.",
+            "You make me smile just by being you.",
+            "Your waist is thin, your body is tea, your smile is big, beautiful, and sexy.",
+            "When I think about you I start giggling and kicking my feet.",
+            "Choosing between you and Tyler is a tough choice, but I'd still choose you.",
+            "Peanut is jealous with how you're able to take my attention away.",
             "I love the way you see the world.",
-            "You're my favorite part of every single day."
+            "You're my favorite part of every single day.",
+            "You're the smartest, funniest person I know.",
+            "May can't come soon enough.",
+            "I'd sit on a train station bench with you forever.",
+            "I can't give you flowers in person but here are some virtual ones 🌸🌺🌼🌻🌷🌹.",
+            "I get giddy just thinking about seeing you again.",
+            "I'm straight kicking my feet and giggling thinking about you right now.",
+            "Pinky, are you pondering what I'm pondering? How to teleport to Poland and take over your world.",
+            "Every scar every imperfection, and yet I'm here and I love all of you.",
+            "Drunk words are sober thoughts and I think you've had alot of drunk words from me.",
+            "*In the most British, BOT-TOE-O-WAD-DTDER, accent possible*, \"Hey love\".",
+            "You wear short skirts I wear tshirts you're cheer captain and I'm on the bleachers... you belong with me.",
+            "Lowkirkenuinely would you be the Erika to my JD VANCE.",
+            "You might actually be able to get me to watch heated rivalry. That's the biggest compliment I can give.",
+            ""
+
         ];
 
         function getLocalAffirmation() {
-            const randomIndex = Math.floor(Math.random() * loveAffirmations.length);
-            document.getElementById('affirmation-text').innerText = `"${loveAffirmations[randomIndex]}"`;
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            const index = dayOfYear % loveAffirmations.length;
+            document.getElementById('affirmation-text').innerText = `"${loveAffirmations[index]}"`;
         }
 
-        const categories = ["Movie Choice", "Dress to Impress", "Taylor Song", "Bicep Pic"];
+        const categories = ["Movie Choice", "Dress to Impress", "<u>1</u> Taylor Song", "Bicep Pic"];
         const ticketContainer = document.getElementById('ticket-container');
         const redeemedTickets = JSON.parse(localStorage.getItem('redeemedVouchers')) || [];
 

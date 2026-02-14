@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Surprise</title>
+    <title>Valentine's Surprise for Marta</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,600&family=Patrick+Hand&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -64,7 +64,9 @@
         .slideshow-track {
             display: flex;
             height: 100%;
-            transition: transform 1s cubic-bezier(0.45, 0, 0.55, 1);
+            transition: transform 15s cubic-bezier(0.45, 0, 0.55, 1);
+            will-change: transform;
+    backface-visibility: hidden;
         }
 
         .slide {
@@ -78,23 +80,40 @@
             position: relative;
             z-index: 2;
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-size: clamp(3.5rem, 8vw, 5.5rem);
             color: var(--black);
-            margin: 0 0 15px 0;
+            margin: 0 0 5px 0;
             text-align: center;
-            text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff, 5px 5px 15px rgba(0,0,0,0.3);
+            text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            padding: 20px 35px;
-            border-radius: 40px;
-            border: 2px solid white;
-            max-width: 65%;
+            padding: 10px 20px;
+            width: 85%;
+            max-width: 800px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #affirmation-text {
+            color: var(--val-red);
+            font-family: 'Patrick Hand', cursive;
+            font-weight: 800; /* Extra Bold */
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin: 5px 0 0 0;
+            line-height: 1.2;
+            /* White glow effect to make red text readable on photos */
+            text-shadow: 
+                -1px -1px 0 #fff,  
+                 1px -1px 0 #fff,
+                -1px  1px 0 #fff,
+                 1px  1px 0 #fff,
+                 0px 0px 10px rgba(255,255,255,0.8);
         }
 
         /* --- MAIN DASHBOARD --- */
@@ -121,7 +140,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            max-height: 800px; /* Aligns with right side */
+            max-height: 850px;
         }
 
         .note-content {
@@ -129,25 +148,26 @@
             padding-right: 15px;
         }
 
-        /* Pink scrollbar for the note */
         .note-content::-webkit-scrollbar { width: 8px; }
         .note-content::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 10px; }
         .note-content::-webkit-scrollbar-thumb { background: var(--ticket-pink); border-radius: 10px; border: 2px solid white; }
 
         .note-body { 
             font-family: 'Patrick Hand', cursive; 
-            font-size: 1.6rem; 
-            line-height: 1.5; 
+            font-size: 1.7rem; 
+            line-height: 1.6; 
             color: #222; 
             margin: 0;
         }
 
         .fancy-script {
             font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem;
+            font-size: 3rem;
             color: var(--val-red);
             font-weight: normal;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
         .right-col-stack { flex: 1.2; display: flex; flex-direction: column; gap: 30px; min-width: 380px; }
@@ -167,19 +187,20 @@
             border: 3px solid white;
             padding: 20px;
             flex-grow: 1;
-            max-height: 400px;
+            max-height: 450px;
             overflow-y: auto;
         }
 
         /* TICKETS */
         .category-group { display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: 25px; }
-        .grid-header { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; color: var(--val-red); margin-bottom: 12px; border-bottom: 1px solid rgba(210, 54, 54, 0.2); width: 90%; text-align: center; }
-        .sub-ticket-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; justify-items: center; }
+        .grid-header { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; color: var(--val-red); margin-bottom: 12px; border-bottom: 1px solid rgba(210, 54, 54, 0.2); width: 90%; text-align: center; }
+        .sub-ticket-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; justify-items: center; }
         .ticket-wrapper { filter: drop-shadow(0 0 0 2.5px var(--black)); }
+        
         .ticket {
             background-color: var(--ticket-pink);
             color: var(--black);
-            width: 65px; height: 110px;
+            width: 70px; height: 120px;
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
             padding: 10px 0; cursor: pointer; transition: 0.2s;
             border: 2px solid var(--black);
@@ -190,15 +211,15 @@
             mask-composite: intersect; 
         }
         .ticket:hover { transform: scale(1.08) rotate(2deg); }
-        .ticket-title { font-family: 'Great Vibes', cursive; font-size: 0.75rem; writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; flex-grow: 1; }
+        .ticket-title { font-family: 'Great Vibes', cursive; font-size: 0.8rem; writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; flex-grow: 1; }
         .ticket-dash { width: 80%; border-top: 1.5px dashed var(--black); }
-        .ticket-id { font-size: 0.5rem; font-family: monospace; font-weight: bold; }
+        .ticket-id { font-size: 0.6rem; font-family: monospace; font-weight: bold; }
         .redeemed { filter: grayscale(1) opacity(0.3) !important; pointer-events: none; }
 
         @media (max-width: 1000px) {
             .main-container { flex-direction: column; align-items: center; }
             .left-col-note, .right-col-stack { width: 95%; min-width: unset; }
-            .love-card { max-height: 500px; }
+            .love-card { max-height: 550px; }
         }
     </style>
 </head>
@@ -206,16 +227,12 @@
 
     <div class="hero-section">
         <div class="background-slideshow">
-            <div class="slideshow-track" id="track">
-                <img class="slide" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80">
-                <img class="slide" src="https://images.unsplash.com/photo-1516589174184-c68526614fd5?auto=format&fit=crop&w=1200&q=80">
-                <img class="slide" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80">
-            </div>
+            <div class="slideshow-track" id="track"></div>
         </div>
         <h1 class="hero-title">Happy Valentine's Day</h1>
         <div class="hero-content">
-            <h2 style="font-family: 'Great Vibes'; color: var(--val-red); font-size: 2rem; margin: 0;">💌 Today's Thought</h2>
-            <p id="affirmation-text" style="font-weight: 600; font-style: italic; font-size: 1.1rem;">"Loading..."</p>
+            <h2 style="font-family: 'Great Vibes'; color: var(--val-red); font-size: 2.5rem; margin: 0; text-shadow: 2px 2px 0 #fff;">💌 Today's Thought</h2>
+            <p id="affirmation-text">"Loading..."</p>
         </div>
     </div>
 
@@ -226,7 +243,7 @@
                     <div class="fancy-script">My Dearest, Marta,</div>
                     <p class="note-body">
                         I want to start by letting you know that I am not a writer, and never have been. Please feel free to correct my grammar, my punctuation, and (if god forbid spell check misses it) my spelling too. <br><br>
-                        When you wrote you're letter you told me the story of when you first saw me, so I guess it’s my turn to tell you the story of when I was certain I knew for certain I wanted this relationship. <br><br>
+                        When you wrote your letter you told me the story of when you first saw me, so I guess it’s my turn to tell you the story of when I was certain I knew for certain I wanted this relationship. <br><br>
                         Remember when we were at the train station outside of the Belvedere? We were both so exhausted. You had just animated every painting you saw with so much passion (except for the modern art you shat on) and we had walked miles around the city. We found a bench where we sat down where you closed your eyes and laid your head on my shoulder. I’d give so much to be back there supporting you, caring for you, and holding your hand. While it might have been a boring moment, the simple quiet peace we shared in that moment is my dream. It made me realize that you were the one I wanted to keep sharing it with.<br><br>
                         Do you know your beautiful? Real question tbh. You are stunning and not just in a superficial way. The way you smile and laugh at the shitiest attempt at a joke, the way you can talk for hours and hours and never run out of things to talk about, the way you are so emotionally intelligent that you can tell what I’m thinking before I think. You’re so smart, so successful, so funny, have I said beautiful yet 🤔. I get so lost just looking into your eyes. I get so giddy just thinking about spending time with you and double so when I think about how you’ll be here in May. I enjoy talking to you, and when we were in Vienna and New York I enjoyed spending every moment with you. <br><br>
                         I told you earlier this week that I don’t think love is passionate, it's not fiery and fierce and it’s not loud and fast. It’s a slow long rocky path with no end in sight. And trust me with a whole ocean separating us and being on 2 different continents, with our own problems and issues to overcome there’s gonna be a whole lotta rocks. But the path in its own right is beautiful with something new around every corner. There is no one more, I want to walk it hand in hand, arm in arm, one bench in a train station at a time with, than you.<br><br>
@@ -247,12 +264,33 @@
             </div>
 
             <div class="ticket-vault" id="ticket-container">
-                <h3 style="text-align: center; font-family: 'Playfair Display'; margin-top: 0; font-size: 1.2rem;">Ticket Booth</h3>
+                <h3 style="text-align: center; font-family: 'Playfair Display'; margin-top: 0; font-size: 1.3rem;">Voucher Book</h3>
             </div>
         </div>
     </div>
 
     <script>
+        // --- 1. CONFIGURATION ---
+        const photoFiles = [
+            "us vienna.jpeg", 
+            "us garden.jpeg", 
+            "us lake.jpeg",
+            "knight us.png",
+            "us dinner.png",
+            "us christmas market.png",
+            "us vienna 2.png",
+            "us vienna 3.png",
+            "us como.png",
+            "us villinus.png",
+            "us snow latina.png",
+            "us working.png",
+            "us working 2.png",
+            "us cat.png",
+            "WE ARE CHARLIE KIRK.png"
+        ];
+        
+        const repoURL = "https://raw.githubusercontent.com/LucaSimoni-314/ECE-214V/main/marta%20final_pics/";
+
         const loveAffirmations = [
             "If you were a fruit you'd be a fineapple.",
             "I'm so fucking lucky to have you by my side.",
@@ -282,6 +320,16 @@
             "Dziękuję, że jesteś (I'm sorry my polish is not good)"
         ];
 
+        function loadSlideshow() {
+            const track = document.getElementById('track');
+            photoFiles.forEach(file => {
+                const img = document.createElement('img');
+                img.className = 'slide';
+                img.src = repoURL + encodeURIComponent(file);
+                track.appendChild(img);
+            });
+        }
+
         function getLocalAffirmation() {
             const now = new Date();
             const start = new Date(now.getFullYear(), 0, 0);
@@ -292,53 +340,58 @@
             document.getElementById('affirmation-text').innerText = `"${loveAffirmations[index]}"`;
         }
 
-        const categories = ["Movie Choice", "Dress to Impress", "<u>1</u> Taylor Song", "Bicep Pic"];
-        const ticketContainer = document.getElementById('ticket-container');
-        const redeemedTickets = JSON.parse(localStorage.getItem('redeemedVouchers')) || [];
+        function buildTickets() {
+            const categories = ["Movie Choice", "Dress to Impress", "Taylor Song", "Bicep Pic"];
+            const ticketContainer = document.getElementById('ticket-container');
+            const redeemedTickets = JSON.parse(localStorage.getItem('redeemedVouchers')) || [];
 
-        categories.forEach((catName, catIndex) => {
-            const group = document.createElement('div');
-            group.className = 'category-group';
-            const header = document.createElement('div');
-            header.className = 'grid-header';
-            header.innerHTML = catName;
-            group.appendChild(header);
-            const subGrid = document.createElement('div');
-            subGrid.className = 'sub-ticket-grid';
+            categories.forEach((catName, catIndex) => {
+                const group = document.createElement('div');
+                group.className = 'category-group';
+                const header = document.createElement('div');
+                header.className = 'grid-header';
+                header.innerHTML = catName;
+                group.appendChild(header);
+                
+                const subGrid = document.createElement('div');
+                subGrid.className = 'sub-ticket-grid';
 
-            for(let i = 1; i <= 4; i++) {
-                const ticketID = `ticket-${catIndex}-${i}`;
-                const wrapper = document.createElement('div');
-                wrapper.className = 'ticket-wrapper';
-                if (redeemedTickets.includes(ticketID)) wrapper.classList.add('redeemed');
-                const t = document.createElement('div');
-                t.className = 'ticket';
-                t.innerHTML = `<div class="ticket-dash"></div><div class="ticket-title">${catName}</div><div class="ticket-dash"></div><div class="ticket-id">№ ${i}</div>`;
-                t.onclick = function() {
-                    if (!wrapper.classList.contains('redeemed')) {
-                        wrapper.classList.add('redeemed');
-                        const saved = JSON.parse(localStorage.getItem('redeemedVouchers')) || [];
-                        saved.push(ticketID);
-                        localStorage.setItem('redeemedVouchers', JSON.stringify(saved));
-                        alert("Voucher Redeemed! ❤️");
-                    }
-                };
-                wrapper.appendChild(t);
-                subGrid.appendChild(wrapper);
-            }
-            group.appendChild(subGrid);
-            ticketContainer.appendChild(group);
-        });
+                for(let i = 1; i <= 4; i++) {
+                    const ticketID = `ticket-${catIndex}-${i}`;
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'ticket-wrapper';
+                    if (redeemedTickets.includes(ticketID)) wrapper.classList.add('redeemed');
+                    
+                    const t = document.createElement('div');
+                    t.className = 'ticket';
+                    t.innerHTML = `<div class="ticket-dash"></div><div class="ticket-title">${catName}</div><div class="ticket-dash"></div><div class="ticket-id">№ ${i}</div>`;
+                    
+                    t.onclick = function() {
+                        if (!wrapper.classList.contains('redeemed')) {
+                            wrapper.classList.add('redeemed');
+                            const saved = JSON.parse(localStorage.getItem('redeemedVouchers')) || [];
+                            saved.push(ticketID);
+                            localStorage.setItem('redeemedVouchers', JSON.stringify(saved));
+                            alert("Voucher Redeemed! ❤️");
+                        }
+                    };
+                    wrapper.appendChild(t);
+                    subGrid.appendChild(wrapper);
+                }
+                group.appendChild(subGrid);
+                ticketContainer.appendChild(group);
+            });
+        }
 
         let slideIdx = 0;
         function playSlides() {
             const track = document.getElementById('track');
             const slides = document.querySelectorAll('.slide');
-            if(!track || slides.length === 0) return;
+            if(slides.length === 0) return;
             slideIdx++;
             if (slideIdx >= slides.length) slideIdx = 0;
             track.style.transform = `translateX(${slideIdx * -100}%)`;
-            setTimeout(playSlides, 4500);
+            setTimeout(playSlides, 15000);
         }
 
         function createHeart() {
@@ -352,7 +405,13 @@
             setTimeout(() => heart.remove(), 7000);
         }
 
-        window.onload = () => { getLocalAffirmation(); playSlides(); setInterval(createHeart, 450); };
+        window.onload = () => { 
+            loadSlideshow();
+            getLocalAffirmation(); 
+            buildTickets();
+            playSlides(); 
+            setInterval(createHeart, 450); 
+        };
     </script>
 </body>
 </html>
